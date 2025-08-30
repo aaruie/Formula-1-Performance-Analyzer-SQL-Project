@@ -1,1 +1,1 @@
-# Formula-1-Performance-Analyzer-SQL-Project
+# Formula 1 Performance Analyzer using SQL
