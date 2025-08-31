@@ -99,7 +99,7 @@ CREATE TABLE constructor_results (
 
 ### 1. Who are the most consistent drivers across seasons?
 
-**Objective :** Driver Performance & Consistency
+**Objective :** 👨🏻 Driver Performance & Consistency
 ```sql
 SELECT 
     d.driverId,
@@ -192,6 +192,7 @@ GROUP BY d.driverId, driver, d.number,ra.year
 ORDER BY d.driverId, ra.year;
 ```
 
+****Objective :** 🏎️ Constructor/Team Performance
 ### 6. Which constructors have the best average finish positions?
 
 ```sql
@@ -278,6 +279,7 @@ ORDER BY ra.year, total_points DESC;
 ```
 
 
+**Objective :** ⏲️ Pit Stop Strategy & Lap Time Analysis
 ### 11. What’s the average pit stop duration per constructor?
 
 ```sql
