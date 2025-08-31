@@ -115,10 +115,11 @@ GROUP BY d.driverId, driver
 ORDER BY stddev_finish ASC;
 ```
 
-**Objective :**
 
--- 2. Which drivers gained the most positions during races?
+### 2. Which drivers gained the most positions during races?
 
+
+```sql
 SELECT 
     d.driverId,
     d.forename || ' ' || d.surname AS driver,
@@ -130,11 +131,12 @@ WHERE r.grid > 0
   AND r.positionOrder IS NOT NULL
 GROUP BY d.driverId, driver
 ORDER BY total_positions_gained DESC;
+```
 
 
--- 3. Which drivers perform best at specific circuits (e.g., Monaco, Silverstone)?
+### 3. Which drivers perform best at specific circuits (e.g., Monaco, Silverstone)?
 
-
+```sql
 SELECT 
     ra.name AS circuit_name,
     ra.year,
@@ -153,10 +155,12 @@ WHERE r.points = 25
   )
 GROUP BY ra.name, ra.year, d.driverId, driver
 ORDER BY circuit_name, ra.year, avg_points DESC;
+```
 
 
--- 4. Top 5 drivers with the most podium finishes (P1–P3) from 2020–2024
+### 4. Top 5 drivers with the most podium finishes (P1–P3) from 2020–2024
 
+```sql
 SELECT 
     d.driverId,
     d.forename || ' ' || d.surname AS driver,
@@ -169,10 +173,11 @@ WHERE r.positionOrder BETWEEN 1 AND 3
 GROUP BY d.driverId, driver,d.number
 ORDER BY podiums DESC
 LIMIT 5;
+```
 
+### 5. Driver championship ranking consistency across 5 seasons
 
--- 5. Driver championship ranking consistency across 5 seasons
-
+```sql
 SELECT 
     d.driverId,
     d.forename || ' ' || d.surname AS driver,
@@ -185,9 +190,11 @@ JOIN drivers d ON r.driverId = d.driverId
 JOIN races ra ON r.raceId = ra.raceId
 GROUP BY d.driverId, driver, d.number,ra.year
 ORDER BY d.driverId, ra.year;
+```
 
--- 6. Which constructors have the best average finish positions?
+### 6. Which constructors have the best average finish positions?
 
+```sql
 SELECT 
     c.constructorId,
     c.constructor_name,
@@ -198,10 +205,11 @@ JOIN races ra ON r.raceId = ra.raceId
 WHERE r.positionOrder IS NOT NULL 
 GROUP BY c.constructorId, c.constructor_name
 ORDER BY avg_finish_position ASC;
+```
 
+### 7. Which team gained the most points in the last 3 seasons?
 
--- 7. Which team gained the most points in the last 3 seasons?
-
+```sql
 SELECT 
     c.constructorId,
     c.constructor_name,
@@ -212,10 +220,12 @@ JOIN constructors c ON r.constructorId = c.constructorId
 JOIN races ra ON r.raceId = ra.raceId
 GROUP BY c.constructorId, c.constructor_name,ra.year
 ORDER BY total_points DESC;
+```
 
 
--- 8. Most improved constructor year-over-year
+### 8. Most improved constructor year-over-year
 
+```sql
 SELECT 
     constructorId,
 	constructor_name,
@@ -233,11 +243,12 @@ FROM (
 ) AS sub
 GROUP BY constructorId, constructor_name, year
 ORDER BY constructorId, year;
+```
 
 
--- 9. Team performance by track: who dominates where?
--→ Join races, results, and constructors, group by circuitId.
+### 9. Team performance by track: who dominates where?
 
+```sql
 SELECT
    c.constructorId,
    c.constructor_name,
@@ -248,10 +259,12 @@ JOIN races ra ON r.raceId = ra.raceId
 JOIN constructors c ON r.constructorId = c.constructorId
 GROUP BY  c.constructorId, c.constructor_name, ra.name
 ORDER BY circuit_name, total_points DESC;
+```
 
 
--- 10. Constructor championship rankings across 5 seasons
+### 10. Constructor championship rankings across 5 seasons
 
+```sql
 SELECT 
     c.constructor_name,
     ra.year,
@@ -261,12 +274,13 @@ JOIN constructors c ON co.constructorId = c.constructorId
 JOIN races ra ON co.raceId = ra.raceId
 WHERE ra.year BETWEEN 2020 AND 2024
 GROUP BY c.constructor_name, ra.year
-ORDER BY ra.year, total_points DESC; 
+ORDER BY ra.year, total_points DESC;
+```
 
 
--- 11. What’s the average pit stop duration per constructor?
+### 11. What’s the average pit stop duration per constructor?
 
-
+```sql
 SELECT 
     c.constructor_name,
     ROUND(AVG(ps.duration)::numeric, 2) AS avg_pit_duration
@@ -276,12 +290,11 @@ JOIN constructors c ON r.constructorId = c.constructorId
 WHERE ps.duration IS NOT NULL
 GROUP BY c.constructor_name
 ORDER BY avg_pit_duration;
+```
 
+### 12. How many pit stops do drivers take per race on average?
 
-
--- 12. How many pit stops do drivers take per race on average?
-
-
+```sql
 SELECT 
     ps.driverId,
     d.forename || ' ' || d.surname AS driver,
@@ -294,10 +307,12 @@ FROM (
 JOIN drivers d ON ps.driverId = d.driverId
 GROUP BY ps.driverId, driver
 ORDER BY avg_pit_stops DESC;
+```
 
 
--- 13. How does pit stop count affect finishing position?
+### 13. How does pit stop count affect finishing position?
 
+```sql
 SELECT 
     r.driverId,
     d.forename,
@@ -310,12 +325,12 @@ JOIN drivers d ON r.driverId = d.driverId
 WHERE r.positionOrder IS NOT NULL
 GROUP BY r.driverId, d.forename, d.surname, r.positionOrder
 ORDER BY pit_stops;
+```
 
 
--- 14. Lap time degradation analysis (top circuits only)
--- (Analyze lap times across laps to observe performance drop over time)
+### 14. Lap time degradation analysis (top circuits only)
 
-
+```sql
 SELECT 
     lt.raceId,
     lt.driverId,
@@ -331,11 +346,11 @@ JOIN drivers d ON lt.driverId = d.driverId
 WHERE ra.circuitId IN (6, 9, 15, 13, 24)
 GROUP BY lt.raceId, lt.driverId,driver, ra.year,ra.name, ra.circuitId, lt.lap
 ORDER BY ra.circuitId, lap;
+```
 
+### 15. Who are the fastest drivers on average over entire races (only top 7 tracks)?
 
-
--- 15. Who are the fastest drivers on average over entire races (only top 7 tracks)?
-
+```sql
 SELECT 
     d.driverId,
     d.forename || ' ' || d.surname AS driver,
@@ -346,4 +361,5 @@ JOIN races ra ON lt.raceId = ra.raceId
 WHERE ra.circuitId IN (6, 9, 13, 15, 24)
 GROUP BY d.driverId, driver
 ORDER BY avg_lap_time ASC;
+```
 
