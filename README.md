@@ -20,9 +20,7 @@ The data for this project is sourced from the Kaggle dataset:
 
 ## SCHEMA
 
--- Create and load the full 'races', 'drivers', 'results', 'constructors', 'lap_times', 'pit_stops' table--
-
-'''sql
+```sql
 
 DROP TABLE IF EXISTS constructor_results;
 CREATE TABLE races (
@@ -33,7 +31,7 @@ CREATE TABLE races (
   name varchar(30),
   date DATE
 );
-'''
+
 
 CREATE TABLE drivers (
   driverId INT,
@@ -92,5 +90,7 @@ CREATE TABLE constructor_results (
   constructorId	 INT,
   points FLOAT
 );
+
+```
 
 
