@@ -24,7 +24,7 @@ The data for this project is sourced from the Kaggle dataset:
 
 DROP TABLE IF EXISTS constructor_results;
 
-- RACES
+**RACES**
 CREATE TABLE races (
   raceId INT,
   year INT,
