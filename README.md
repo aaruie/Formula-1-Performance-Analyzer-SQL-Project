@@ -23,6 +23,8 @@ The data for this project is sourced from the Kaggle dataset:
 ```sql
 
 DROP TABLE IF EXISTS constructor_results;
+
+- RACES
 CREATE TABLE races (
   raceId INT,
   year INT,
