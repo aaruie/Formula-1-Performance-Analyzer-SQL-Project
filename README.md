@@ -13,4 +13,4 @@ The Formula 1 Performance Analyzer is a data analytics project that uses advance
 
 ## DATASET
 The data for this project is sourced from the Kaggle dataset:
- - Dataset : [Formula 1 dataset](https://www.kaggle.com/datasets/rohanrao/formula-1-world-championship-1950-2020)
+ - Dataset : [Formula 1 Dataset](https://www.kaggle.com/datasets/rohanrao/formula-1-world-championship-1950-2020)
