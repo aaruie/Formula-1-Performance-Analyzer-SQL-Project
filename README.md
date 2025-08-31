@@ -10,3 +10,7 @@ The Formula 1 Performance Analyzer is a data analytics project that uses advance
 - Pit-Stop Efficiency: Measure and compare the speed of pit stops across different teams to identify the most efficient crews and analyze how pit-stop performance impacts a race's final outcome. .
 - Constructor Strategy Deconstruction: Uncover team-specific strategies by correlating race results with factors like tire choice and development trends, highlighting shifts in the competitive landscape.
 - Causal Race Factors: Identify key variables, such as safety cars, overtakes, and incidents, that influence a driver's final position in a race.
+
+## DATASET
+The data for this project is sourced from the Kaggle dataset:
+ - Dataset : [Formula 1 dataset](https://www.kaggle.com/datasets/rohanrao/formula-1-world-championship-1950-2020)
